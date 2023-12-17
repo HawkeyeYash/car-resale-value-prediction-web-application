@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+    <style>
+        body{
+            margin-top:20px;
+            background: #F0F8FF;
+            }
+            .card {
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+            }
+            .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid #e5e9f2;
+            border-radius: .2rem;
+            }
+            .card-header:first-child {
+            border-radius: calc(.2rem - 1px) calc(.2rem - 1px) 0 0;
+            }
+            .card-header {
+            border-bottom-width: 1px;
+            }
+            .card-header {
+            padding: .75rem 1.25rem;
+            margin-bottom: 0;
+            color: inherit;
+            background-color: #fff;
+            border-bottom: 1px solid #e5e9f2;
+            }
+
+        @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+        @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+        .fa-2x {
+        font-size: 2em;
+        }
+        .fa {
+        position: relative;
+        display: table-cell;
+        width: 60px;
+        height: 36px;
+        text-align: center;
+        vertical-align: middle;
+        font-size:20px;
+        }
+
+
+        .main-menu:hover,nav.main-menu.expanded {
+        width:250px;
+        overflow:visible;
+        }
+
+        .main-menu {
+        background:#212121;
+        border-right:1px solid #e5e5e5;
+        position:fixed;
+        top:0;
+        bottom:0;
+        height:100%;
+        left:0;
+        width:60px;
+        overflow:hidden;
+        -webkit-transition:width .05s linear;
+        transition:width .05s linear;
+        -webkit-transform:translateZ(0) scale(1,1);
+        z-index:1000;
+        }
+
+        .main-menu>ul {
+        margin:7px 0;
+        }
+
+        .main-menu li {
+        position:relative;
+        display:block;
+        width:250px;
+        }
+
+        .main-menu li>a {
+        position:relative;
+        display:table;
+        border-collapse:collapse;
+        border-spacing:0;
+        color:#999;
+        font-family: arial;
+        font-size: 14px;
+        text-decoration:none;
+        -webkit-transform:translateZ(0) scale(1,1);
+        -webkit-transition:all .1s linear;
+        transition:all .1s linear;
+        
+        }
+
+        .main-menu .nav-icon {
+        position:relative;
+        display:table-cell;
+        width:60px;
+        height:36px;
+        text-align:center;
+        vertical-align:middle;
+        font-size:18px;
+        }
+
+        .main-menu .nav-text {
+        position:relative;
+        display:table-cell;
+        vertical-align:middle;
+        width:190px;
+        font-family: 'Titillium Web', sans-serif;
+        }
+
+        .main-menu>ul.logout {
+        position:absolute;
+        left:0;
+        bottom:0;
+        }
+
+        .no-touch .scrollable.hover {
+        overflow-y:hidden;
+        }
+
+        .no-touch .scrollable.hover:hover {
+        overflow-y:auto;
+        overflow:visible;
+        }
+
+        a:hover,a:focus {
+        text-decoration:none;
+        }
+
+        nav {
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        -o-user-select:none;
+        user-select:none;
+        }
+
+        nav ul,nav li {
+        outline:0;
+        margin:0;
+        padding:0;
+        }
+        .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+        color:#fff;
+        background-color:coral;
+        }
+        .area {
+        float: left;
+        background: #e2e2e2;
+        width: 100%;
+        height: 100%;
+        }
+        @font-face {
+        font-family: 'Titillium Web';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+        }
+
+        .heading{
+            margin: 50px;
+            text-align: center;
+            color: #8cad95;
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+          }
+          
+          .button1 {
+            margin-left: 600px;
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
+          }
+          
+          .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+          }
+          
+          .button2 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #008CBA;
+          }
+          
+          .button2:hover {
+            background-color: #008CBA;
+            color: white;
+          }
+          .messages{
+            color: red;
+            margin-left: 35%;
+          }
+    </style>
+    <style>
+        /* Center the loader */
+        #loader {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 1;
+          width: 120px;
+          height: 120px;
+          margin: -76px 0 0 -76px;
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+        }
+        
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        /* Add animation to "page content" */
+        .animate-bottom {
+          position: relative;
+          -webkit-animation-name: animatebottom;
+          -webkit-animation-duration: 1s;
+          animation-name: animatebottom;
+          animation-duration: 1s
+        }
+        
+        @-webkit-keyframes animatebottom {
+          from { bottom:-100px; opacity:0 } 
+          to { bottom:0px; opacity:1 }
+        }
+        
+        @keyframes animatebottom { 
+          from{ bottom:-100px; opacity:0 } 
+          to{ bottom:0; opacity:1 }
+        }
+        
+        #myDiv {
+          display: none;
+        }
+        </style>
+</head>
+<body onload="myFunction()" style="margin:0;">
+    <div class="area"></div>
+    <nav class="main-menu">
+    <ul>
+        <li>
+            <a href="{% url 'userhome' %}">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">
+                   Home
+                </span>
+            </a>
+          
+        </li>
+        
+        <li class="has-subnav">
+            <a href="{% url 'projectinfo' %}" target="_blank">
+               <i class="fa fa-camera-retro fa-2x"></i>
+                <span class="nav-text">
+                    Project Snaps / Info
+                </span>
+            </a>
+           
+        </li>
+        <li>
+            <a href="https://youtu.be/XaGDdbsR1mc" target = "_blank">
+                <i class="fa fa-film fa-2x"></i>
+                <span class="nav-text">
+                    Video Links
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'mybookings' %}">
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text">
+                   My Orders
+                </span>
+            </a>
+        </li>
+        <li>
+           <a href="{% url 'profile' %}">
+               <i class="fa fa-cogs fa-2x"></i>
+                <span class="nav-text">
+                    Profile Settings
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'aboutus' %}" target = "_blank">
+               <i class="fa fa-info fa-2x"></i>
+                <span class="nav-text">
+                    About Us
+                </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="logout">
+        <li>
+           <a href="{% url 'signout' %}">
+                 <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                    Logout
+                </span>
+            </a>
+        </li>  
+    </ul>
+</nav>
+<div id="loader"></div><div style="display:none;" id="myDiv" class="animate-bottom">
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+        {% if message.tags %}{% endif %}{{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+<br>
+    <div class="container p-0">
+        <h1 class="h3 mb-3">Profile Settings</h1>
+        <div class="row">
+        <div class="col-md-5 col-xl-4">
+        <div class="card">
+        <div class="card-header">
+        <h5 class="card-title mb-0">Profile Settings</h5>
+        </div>
+        <div class="list-group list-group-flush" role="tablist">
+        <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account" role="tab">
+        Account
+        </a>
+        <a class="list-group-item list-group-item-action" data-toggle="list" href="#password" role="tab">
+        Password
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="col-md-7 col-xl-8">
+        <div class="tab-content">
+        <div class="tab-pane fade show active" id="account" role="tabpanel">
+        <div class="card">
+        <div class="card-header">
+        <h5 class="card-title mb-0">Public info</h5>
+        </div>
+        <div class="card-body">
+        <form method="post" action="{% url 'update_publicinfo' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="row">
+        <div class="col-md-8">
+        <div class="form-group">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" value = "{{ user.username }}" readonly>
+        </div>
+        <div class="form-group">
+        <label for="inputUsername">Biography</label>
+        <textarea rows="2" class="form-control" id="inputBio" name = "bio">{{ user.profile.bio }}</textarea>
+        </div>
+        </div>
+        <div class="col-md-4">
+        <div class="text-center">
+        <img id = "profileImagePreview" alt="Profile Image" src="{% if user.profile.profile_image %}{{ user.profile.profile_image.url }}{% else %}https://bootdey.com/img/Content/avatar/avatar1.png{% endif %}" class="rounded-circle img-responsive mt-2" width="128" height="128">
+        <div class="mt-2">
+            <label class="btn btn-primary">
+                <input type="file" id="inputProfileImage" accept="image/*" name="profile_image" style="display: none;" onchange="previewProfileImage(this);">
+                Upload
+            </label>
+        </div>
+        <small>For best results, use an image at least 128px by 128px in .jpg format</small>
+        </div>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+        </div>
+        <div class="card">
+        <div class="card-header">
+        <h5 class="card-title mb-0">Private info</h5>
+        </div>
+        <div class="card-body">
+        <form method="post" action="{% url 'update_privateinfo' %}">
+            {% csrf_token %}
+        <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="inputFirstName">First name</label>
+        <input type="text" class="form-control" id="inputFirstName" value="{{ user.first_name }}" readonly>
+        </div>
+        <div class="form-group col-md-6">
+        <label for="inputLastName">Last name</label>
+        <input type="text" class="form-control" id="inputLastName" value="{{ user.last_name }}" readonly>
+        </div>
+        </div>
+        <div class="form-group">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" id="inputEmail4" value="{{ user.email }}" readonly>
+        </div>
+        <div class="form-group">
+        <label for="inputmobile">Mobile Number</label>
+        <input type="tel" class="form-control" id="inputmobile" name = "phone" value="{{ user.profile.phone }}">
+        </div>
+        <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input type="text" class="form-control" id="inputAddress" name = "address1" value = "{{ user.profile.address1 }}">
+        </div>
+        <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input type="text" class="form-control" id="inputAddress2" name = "address2" value = "{{ user.profile.address2 }}">
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" name = "city" value = "{{ user.profile.city }}">
+        </div>
+        <div class="form-group">
+        <label for="inputState">State</label>
+        <input type="text" class="form-control" id="inputState" name = "state" value = "{{ user.profile.state }}">
+        </div>
+        <div class="form-group col-md-2">
+        <label for="inputZip">Zip</label>
+        <input type="text" class="form-control" id="inputZip" name = "zip" value = "{{ user.profile.zip }}">
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+        </div>
+        </div>
+        <div class="tab-pane fade" id="password" role="tabpanel">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Change Password</h5>
+                    <form method="post" action="{% url 'change_password' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group">
+                            <label for="inputPasswordNew">New password</label>
+                            <input type="password" class="form-control" id="inputPasswordNew" name="new_password1">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordNew2">Confirm password</label>
+                            <input type="password" class="form-control" id="inputPasswordNew2" name="new_password2">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div> 
+    <script>
+        function previewProfileImage(input) {
+            var preview = document.getElementById('profileImagePreview');
+            var file = input.files[0];
+    
+            if (file) {
+                var reader = new FileReader();
+    
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+    
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+<script>
+    var myVar;
+    
+    function myFunction() {
+      myVar = setTimeout(showPage, 3000);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
+    </script>
+    <script>
+        window.watsonAssistantChatOptions = {
+          integrationID: "da11f124-17bf-48b5-b85e-37d5ee8f4bb8", // The ID of this integration.
+          region: "eu-gb", // The region your integration is hosted in.
+          serviceInstanceID: "53a30ff1-a105-486f-b9b2-80a37c74f96d", // The ID of your service instance.
+          onLoad: async (instance) => { await instance.render(); }
+        };
+        setTimeout(function(){
+          const t=document.createElement('script');
+          t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+          document.head.appendChild(t);
+        });
+      </script>
+</html>

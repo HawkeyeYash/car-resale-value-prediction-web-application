@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        body{
+            background: #d3d6de;
+        }
+        img{
+            margin-top: 140px;
+            margin-left: 160px;
+            border-radius: 50%;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-areas: 
+              'header header header header header header' 
+              'left left middle middle right right' 
+              'footer footer footer footer footer footer';
+            /* grid-column-gap: 10px; - if you want gap between the columns */
+        } 
+        .left {
+        grid-area: left;
+        }
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        }
+        ::selection{
+        background: #1a75ff;
+        color: #fff;
+        }
+        .wrapper{
+        grid-area: right;
+        margin-top: 70px;
+        margin-left: -400px;
+        overflow: hidden;
+        max-width: 390px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+        }
+        .wrapper .title-text{
+        display: flex;
+        width: 200%;
+        }
+        .wrapper .title{
+        width: 50%;
+        font-size: 35px;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
+        }
+        .wrapper .slide-controls{
+        position: relative;
+        display: flex;
+        height: 50px;
+        width: 100%;
+        overflow: hidden;
+        margin: 30px 0 10px 0;
+        justify-content: space-between;
+        border: 1px solid lightgrey;
+        border-radius: 15px;
+        }
+        .slide-controls .slide{
+        height: 100%;
+        width: 100%;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        text-align: center;
+        line-height: 48px;
+        cursor: pointer;
+        z-index: 1;
+        transition: all 0.6s ease;
+        }
+        .slide-controls label.signup{
+        color: #000;
+        }
+       
+        input[type="radio"]{
+        display: none;
+        }
+        
+       
+        #signup:checked ~ label.login{
+        color: #000;
+        }
+        #login:checked ~ label.signup{
+        color: #000;
+        }
+        #login:checked ~ label.login{
+        cursor: default;
+        user-select: none;
+        }
+        .wrapper .form-container{
+        width: 100%;
+        overflow: hidden;
+        }
+        .form-container .form-inner{
+        display: flex;
+        width: 200%;
+        }
+        .form-container .form-inner form{
+        width: 50%;
+        transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
+        }
+        .form-inner form .field{
+        height: 50px;
+        width: 100%;
+        margin-top: 20px;
+        }
+        .form-inner form .field input{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        padding-left: 15px;
+        border-radius: 15px;
+        border: 1px solid lightgrey;
+        border-bottom-width: 2px;
+        font-size: 17px;
+        transition: all 0.3s ease;
+        }
+        .form-inner form .field input:focus{
+        border-color: #1a75ff;
+        /* box-shadow: inset 0 0 3px #fb6aae; */
+        }
+        .form-inner form .field input::placeholder{
+        color: #999;
+        transition: all 0.3s ease;
+        }
+        form .field input:focus::placeholder{
+        color: #1a75ff;
+        }
+        .form-inner form .pass-link{
+        margin-top: 5px;
+        }
+        .form-inner form .signup-link{
+        text-align: center;
+        margin-top: 30px;
+        }
+        .form-inner form .pass-link a,
+        .form-inner form .signup-link a{
+        color: #1a75ff;
+        text-decoration: none;
+        }
+        .form-inner form .pass-link a:hover,
+        .form-inner form .signup-link a:hover{
+        text-decoration: underline;
+        }
+        form .btn{
+        height: 50px;
+        width: 100%;
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+        }
+        form .btn .btn-layer{
+        height: 100%;
+        width: 300%;
+        position: absolute;
+        left: -100%;
+        background: -webkit-linear-gradient(right,#003366,#004080,#0059b3
+        , #0073e6);
+        border-radius: 15px;
+        transition: all 0.4s ease;;
+        }
+        form .btn:hover .btn-layer{
+        left: 0;
+        }
+        form .btn input[type="submit"]{
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        position: relative;
+        background: none;
+        border: none;
+        color: #fff;
+        padding-left: 0;
+        border-radius: 15px;
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        }
+        .messages{
+            color: red;
+        }
+    </style>
+    <style>
+        /* Center the loader */
+        #loader {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          z-index: 1;
+          width: 120px;
+          height: 120px;
+          margin: -76px 0 0 -76px;
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          -webkit-animation: spin 2s linear infinite;
+          animation: spin 2s linear infinite;
+        }
+        
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        /* Add animation to "page content" */
+        .animate-bottom {
+          position: relative;
+          -webkit-animation-name: animatebottom;
+          -webkit-animation-duration: 1s;
+          animation-name: animatebottom;
+          animation-duration: 1s
+        }
+        
+        @-webkit-keyframes animatebottom {
+          from { bottom:-100px; opacity:0 } 
+          to { bottom:0px; opacity:1 }
+        }
+        
+        @keyframes animatebottom { 
+          from{ bottom:-100px; opacity:0 } 
+          to{ bottom:0; opacity:1 }
+        }
+        
+        #myDiv {
+          display: none;
+        }
+        </style>
+</head>
+<body onload="myFunction()" style="margin:0;"><div id="loader"></div><div style="display:none;" id="myDiv" class="animate-bottom">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand">WheelsReborn</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'signin' %}">Home</a></li>
+            <li><a href="{% url 'projectinfo' %}" target="_blank">Project Info</a></li>
+            <li><a href="https://youtu.be/XaGDdbsR1mc" target = "_blank">Video Links</a></li>
+            <li><a href="{% url 'aboutus' %}" target = "_blank">About Us</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="grid-container"> 
+        <div class = "left"><img src="\static\logo.jpg" width="500" height="500"></div> 
+        <div class="wrapper">
+            <div class="title-text">
+            <div class="title login">SignUp Form</div>
+            </div>
+            <div class="form-inner">
+                <!-- Signup form -->
+                <form action="{% url 'signup' %}" method="post" class="signup">
+                    {% csrf_token %}
+                    <div class="field">
+                        <input type="username" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="field">
+                        <input type="text" name="fname" placeholder="First Name" required>
+                    </div>
+                    <div class="field">
+                        <input type="text" name="lname" placeholder="Last Name" required>
+                    </div>
+                    <div class="field">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" id="pass1" name="pass1" placeholder="Password" required>
+                    </div>
+                    <div class="field">
+                        <input type="password" id="pass2" name="pass2" placeholder="Confirm password" required>
+                    </div><br>
+                    {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            {% if message.tags %}{% endif %}{{ message }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="field btn">
+                        <div class="btn-layer"></div>
+                        <input type="submit" value="Signup">
+                    </div>
+                    <div class="signup-link">Click here to login - <a href="{% url 'signin' %}">Login now</a></div>
+                </form>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var myVar;
+    
+    function myFunction() {
+      myVar = setTimeout(showPage, 3000);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
+    </script>
+    <script>
+      window.watsonAssistantChatOptions = {
+        integrationID: "da11f124-17bf-48b5-b85e-37d5ee8f4bb8", // The ID of this integration.
+        region: "eu-gb", // The region your integration is hosted in.
+        serviceInstanceID: "53a30ff1-a105-486f-b9b2-80a37c74f96d", // The ID of your service instance.
+        onLoad: async (instance) => { await instance.render(); }
+      };
+      setTimeout(function(){
+        const t=document.createElement('script');
+        t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+        document.head.appendChild(t);
+      });
+    </script>
+</html>

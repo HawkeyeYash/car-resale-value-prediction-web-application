@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Your Car Price</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTRC20_Address/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <style>
+        @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+        @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+        .fa-2x {
+        font-size: 2em;
+        }
+        .fa {
+        position: relative;
+        display: table-cell;
+        width: 60px;
+        height: 36px;
+        text-align: center;
+        vertical-align: middle;
+        font-size:20px;
+        }
+
+        .main-menu:hover,nav.main-menu.expanded {
+        width:250px;
+        overflow:visible;
+        }
+
+        .prediction0{
+          margin-left: 30%;
+          color: red;
+          font-size: 30px;
+        }
+        
+        .prediction1{
+          color: green;
+          font-weight: bold;
+          display: inline;
+        }
+        .prediction1{
+          animation: blink-animation 0.8s steps(5, start) infinite;
+          -webkit-animation: blink-animation 0.8s steps(5, start) infinite;
+        }
+
+        .img1and2{
+          margin-left: 10%;
+        }
+        .img3and4{
+          margin-left: 10%;
+        }
+
+        @keyframes blink-animation {
+          to {
+            visibility: hidden;
+          }
+        }
+        @-webkit-keyframes blink-animation {
+          to {
+            visibility: hidden;
+          }
+        }
+        .main-menu {
+        background:#212121;
+        border-right:1px solid #e5e5e5;
+        position:fixed;
+        top:0;
+        bottom:0;
+        height:100%;
+        left:0;
+        width:60px;
+        overflow:hidden;
+        -webkit-transition:width .05s linear;
+        transition:width .05s linear;
+        -webkit-transform:translateZ(0) scale(1,1);
+        z-index:1000;
+        }
+
+        .main-menu>ul {
+        margin:7px 0;
+        }
+
+        .main-menu li {
+        position:relative;
+        display:block;
+        width:250px;
+        }
+
+        .main-menu li>a {
+        position:relative;
+        display:table;
+        border-collapse:collapse;
+        border-spacing:0;
+        color:#999;
+        font-family: arial;
+        font-size: 14px;
+        text-decoration:none;
+        -webkit-transform:translateZ(0) scale(1,1);
+        -webkit-transition:all .1s linear;
+        transition:all .1s linear;
+        
+        }
+
+        .main-menu .nav-icon {
+        position:relative;
+        display:table-cell;
+        width:60px;
+        height:36px;
+        text-align:center;
+        vertical-align:middle;
+        font-size:18px;
+        }
+
+        .main-menu .nav-text {
+        position:relative;
+        display:table-cell;
+        vertical-align:middle;
+        width:190px;
+        font-family: 'Titillium Web', sans-serif;
+        }
+
+        .main-menu>ul.logout {
+        position:absolute;
+        left:0;
+        bottom:0;
+        }
+
+        .no-touch .scrollable.hover {
+        overflow-y:hidden;
+        }
+
+        .no-touch .scrollable.hover:hover {
+        overflow-y:auto;
+        overflow:visible;
+        }
+
+        a:hover,a:focus {
+        text-decoration:none;
+        }
+
+        nav {
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        -o-user-select:none;
+        user-select:none;
+        }
+
+        nav ul,nav li {
+        outline:0;
+        margin:0;
+        padding:0;
+        }
+        .main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+        color:#fff;
+        background-color:coral;
+        }
+        .area {
+        float: left;
+        background: #e2e2e2;
+        width: 100%;
+        height: 100%;
+        }
+        @font-face {
+        font-family: 'Titillium Web';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+        }
+
+        .heading{
+          margin-left: 450px;
+        }
+        
+        .inputDnD {
+          .form-control-file {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 6em;
+            outline: none;
+            visibility: hidden;
+            cursor: pointer;
+            background-color: #c61c23;
+            box-shadow: 0 0 5px solid currentColor;
+            &:before {
+              content: attr(data-title);
+              position: absolute;
+              top: 0.5em;
+              left: 0;
+              width: 100%;
+              min-height: 6em;
+              line-height: 2em;
+              padding-top: 1.5em;
+              opacity: 1;
+              visibility: visible;
+              text-align: center;
+              border: 0.25em dashed currentColor;
+              transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+              overflow: hidden;
+            }
+            &:hover {
+              &:before {
+                border-style: solid;
+                box-shadow: inset 0px 0px 0px 0.25em currentColor;
+              }
+            }
+          }
+        }
+        .btn-block{
+          width: 100%;
+        }
+    </style>
+    <style>
+      /* Center the loader */
+      #loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 120px;
+        height: 120px;
+        margin: -76px 0 0 -76px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+      
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Add animation to "page content" */
+      .animate-bottom {
+        position: relative;
+        -webkit-animation-name: animatebottom;
+        -webkit-animation-duration: 1s;
+        animation-name: animatebottom;
+        animation-duration: 1s
+      }
+      
+      @-webkit-keyframes animatebottom {
+        from { bottom:-100px; opacity:0 } 
+        to { bottom:0px; opacity:1 }
+      }
+      
+      @keyframes animatebottom { 
+        from{ bottom:-100px; opacity:0 } 
+        to{ bottom:0; opacity:1 }
+      }
+      
+      #myDiv {
+        display: none;
+      }
+      </style>
+</head>
+<body onload="myFunction()" style="margin:0;">
+    <div class="area"></div>
+    <nav class="main-menu">
+    <ul>
+        <li>
+            <a href="{% url 'userhome' %}">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">
+                   Home
+                </span>
+            </a>
+          
+        </li>
+        
+        <li class="has-subnav">
+            <a href="{% url 'projectinfo' %}" target="_blank">
+               <i class="fa fa-camera-retro fa-2x"></i>
+                <span class="nav-text">
+                    Project Snaps / Info
+                </span>
+            </a>
+           
+        </li>
+        <li>
+            <a href="https://youtu.be/XaGDdbsR1mc" target = "_blank">
+                <i class="fa fa-film fa-2x"></i>
+                <span class="nav-text">
+                    Video Links
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'mybookings' %}">
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text">
+                   My Orders
+                </span>
+            </a>
+        </li>
+        <li>
+           <a href="{% url 'profile' %}">
+               <i class="fa fa-cogs fa-2x"></i>
+                <span class="nav-text">
+                    Profile Settings
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'aboutus' %}" target = "_blank">
+               <i class="fa fa-info fa-2x"></i>
+                <span class="nav-text">
+                    About Us
+                </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="logout">
+        <li>
+           <a href="{% url 'signout' %}">
+                 <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                    Logout
+                </span>
+            </a>
+        </li>  
+    </ul>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTRC20_Address/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+		
+		<div id="loader"></div><div style="display:none;" id="myDiv" class="animate-bottom">
+        
+		<nav class="navbar navbar-dark bg-dark">
+            <div class = "heading">
+			<span class="navbar-brand mb-0 h1"><h1>Predict the true value of your car !<h1></span>
+        </div>
+		</nav><br>
+    <div class = "prediction0">Your car's real worth is => Rs. <div class = "prediction1">{{ predicted_price }}</div></div><br>
+    <div class = img1and2>
+      {% if prediction_image1_path %}
+      <img src="{{ prediction_image1_path }}" alt="Prediction 1" height = 500 width = 600 style = "border:solid;">
+      {% endif %}
+      {% if prediction_image2_path %}
+      <img src="{{ prediction_image2_path }}" alt="Prediction 2" height = 500 width = 600 style = "border:solid;">
+      {% endif %}
+    </div>
+    <div class = img3and4>
+      {% if prediction_image3_path %}
+      <br>
+      <img src="{{ prediction_image3_path }}" alt="Prediction 3" height = 500 width = 600 style = "border:solid;">
+      {% endif %}
+      {% if prediction_image4_path %}
+      <img src="{{ prediction_image4_path }}" alt="Prediction 4" height = 500 width = 600 style = "border:solid;">
+      {% endif %}
+    </div>
+		<div class="container">
+			<br>
+			<form action = "{% url 'prediction' %}" method = "post" enctype = "multipart/form-data">
+        {% csrf_token %}
+				<fieldset>
+				<legend>Car Resale Value Prediction Form</legend><br>
+				  <div class="card card-body" >
+					  <div class="form-group  row">
+                        <div class="col-sm-3">
+							<label for="brand">Brand</label>
+							<input class = "form-control" type="text" id="brandInput" name = "brand" oninput="updateBrandSuggestions()" required autocomplete="off">
+              <ul id="brandList" class="autocomplete-list"></ul>
+					   </div>
+                       <div class="col-sm-3">
+                        <label for="model">Model</label>
+                        <input class = "form-control" type="text" id="modelInput" name = "model" oninput="updateModelSuggestions()" disabled required autocomplete="off">
+                        <ul id="modelList" class="autocomplete-list"></ul>
+                        </div>
+                        <div class="col-sm-3">
+                            <label for="variant">Variant</label>
+                            <input class = "form-control" type="text" id="variantInput" name = "variant" oninput="updateVariantSuggestions()" disabled required autocomplete="off">
+                            <ul id="variantList" class="autocomplete-list"></ul>
+                            </div>
+                        <div class="col-sm">
+                            <label for="bodytype">Body Type</label>
+                            <select class="form-control" id="bodytype"  name="bodytype" required>
+                                <option disabled selected value> -- Select an Option -- </option>
+                                <option value = "0">Hachback</option>
+                                <option value = "1">Hybrids</option>
+                                <option value = "2">Luxury Vehicles</option>
+                                <option value = "3">Minivan</option>
+                                <option value = "4">MUV</option>
+                                <option value = "5">Pickup Trucks</option>
+                                <option value = "6">Sedan</option>
+                                <option value = "7">SUV</option>
+                                <option value = "8">Wagon</option>
+                            </select>
+                            </div>
+					  </div>
+					  <br>
+					  <div class="form-group  row">
+						  <div class="col-sm">
+							<label for="ft">Fuel Type</label>
+							<select class="form-control" id="ft" name = "ft" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">CNG</option>
+							  <option value = "1">Diesel</option>
+							  <option value = "2">Petrol</option>
+							  <option value = "3">Electric</option>
+							</select>
+						  </div>
+						  <div class="col-sm">
+							<label for="year">Manufacturing Year</label>
+							<input type="number" class="form-control" id="year" name="year"  required>
+						  </div>
+						  <div class="col-sm">
+							<label for="km">KM Driven</label>
+							<input type="number" class="form-control" id="km" name="km" required>
+						  </div>
+						  <div class="col-sm">
+							<label for="state">State / UT</label>
+							<select class="form-control" id="state" name="state" required>
+							  <option disabled selected value> -- Select an Option -- </option>
+							  <option value = "0">Andhra Pradesh</option>
+							  <option value = "1">Arunachal Pradesh</option>
+                <option value = "2">Assam</option>
+                <option value = "3">Bihar</option>
+                <option value = "4">Chandigarh</option>
+                <option value = "5">Chattisgarh</option>
+                <option value = "6">Dadra and Nagar Haveli</option>
+                <option value = "7">Daman and Diu</option>
+                <option value = "8">Delhi</option>
+                <option value = "9">Goa</option>
+                <option value = "10">Gujarat</option>
+                <option value = "11">Haryana</option>
+                <option value = "12">Himachal Pradesh</option>
+                <option value = "13">Jammu and Kashmir</option>
+                <option value = "14">Jharkhand</option>
+                <option value = "15">Karnataka</option>
+                <option value = "16">Kerala</option>
+                <option value = "17">Madhya Pradesh</option>
+                <option value = "18">Maharashtra</option>
+                <option value = "19">Manipur</option>
+                <option value = "20">Meghalaya</option>
+                <option value = "21">Nagaland</option>
+                <option value = "22">Odisha</option>
+                <option value = "23">Pondicherry</option>
+                <option value = "24">Punjab</option>
+                <option value = "25">Rajasthan</option>
+                <option value = "26">Sikkim</option>
+                <option value = "27">Tamil Nadu</option>
+                <option value = "28">Telangana</option>
+                <option value = "29">Tripura</option>
+                <option value = "30">Uttar Pradesh</option>
+                <option value = "31">Uttarakhand</option>
+                <option value = "32">West Bengal</option>
+							</select>
+						</div>
+					  </div>
+					  
+					  <br>
+					  <div class="form-group row">
+							<div class="col-sm">
+								<label for="colour">Car Colour</label>
+								<select class="form-control" id="colour" name="colour" required>
+								  <option disabled selected value> -- Select an Option -- </option>
+								  <option value = "0">Black</option>
+								  <option value = "1">Blue</option>
+								  <option value = "2">Brown</option>
+                  <option value = "3">Gold</option>
+                  <option value = "4">Green</option>
+                  <option value = "5">Grey</option>
+                  <option value = "6">Maroon</option>
+                  <option value = "7">Orange</option>
+                  <option value = "9">Red</option>
+                  <option value = "10">Silver</option>
+                  <option value = "11">White</option>
+                  <option value = "12">Yellow</option>
+                  <option value = "8">Other</option>
+								</select>
+							  </div>
+                <div class="col-sm">
+								<label for="ownertype">Owner Type</label>
+								<select class="form-control" id="ownertype" name="ownertype" required>
+								  <option disabled selected value> -- Select an Option -- </option>
+								  <option value = "0">First</option>
+								  <option value = "1">Second</option>
+                  <option value = "2">Third</option>
+                  <option value = "3">Fourth</option>
+								</select>
+							  </div>
+							  <div class="col-sm">
+								<label for="crashsensor">Crash Sensor</label>
+								<select class="form-control" id="crashsensor" name="crashsensor" required>
+								  <option value = "1">Yes</option>
+								  <option value = "0"selected>No</option>
+								</select>
+							  </div>
+							  <div class="col-sm">
+								<label for="tempdisplay">Outside Temperature Display</label>
+								<select class="form-control" id="tempdisplay" name="tempdisplay" required>
+								  <option value = "1">Yes</option>
+								  <option value = "0"selected>No</option>
+								</select>
+							  </div>
+						  </div>
+						  <br>
+						  <div class="form-group  row">
+						  <div class="col-sm">
+							<label for="aqc">Air Quality Control</label>
+							<select class="form-control" id="aqc" name="aqc" required>
+							  <option value = "1">Yes</option>
+							  <option value = "0"selected>No</option>
+							</select>
+						  </div>
+						  <div class="col-sm">
+							<label for="integratedantenna">Integrated Antenna</label>
+							<select class="form-control" id="integratedantenna" name = "integratedantenna" required>
+							  <option value = "1">Yes</option>
+							  <option value = "0"selected>No</option>
+							</select>
+						  </div>
+						  <div class="col-sm">
+                <label for="rearwindowdefogger">Rear Window Defogger</label>
+                <select class="form-control" id="rearwindowdefogger" name = "rearwindowdefogger" required>
+                  <option value = "1">Yes</option>
+                  <option value = "0"selected>No</option>
+                </select>
+                </div>
+                <div class="col-sm">
+                  <label for="multifunctionsteeringwheel">Multifunction Steering Wheel</label>
+                  <select class="form-control" id="multifunctionsteeringwheel" name = "multifunctionsteeringwheel" required>
+                    <option value = "1">Yes</option>
+                    <option value = "0"selected>No</option>
+                  </select>
+                  </div>
+					  </div>
+					  <br>
+            <div class="form-group  row">
+              <div class="col-sm">
+                <label for="driverairbag">Driver Air Bag</label>
+                <select class="form-control" id="driverairbag" name = "driverairbag" required>
+                  <option value = "1">Yes</option>
+                  <option value = "0"selected>No</option>
+                </select>
+                </div>
+                <div class="col-sm">
+                  <label for="heightadjustabledriverseat">Height Adjustable Driver Seat</label>
+                  <select class="form-control" id="heightadjustabledriverseat" name = "heightadjustabledriverseat" required>
+                    <option value = "1">Yes</option>
+                    <option value = "0"selected>No</option>
+                  </select>
+                  </div> 
+                  <div class="col-sm">
+                    <label for="alloywheels">Alloy Wheels</label>
+                    <select class="form-control" id="alloywheels" name = "alloywheels" required>
+                      <option value = "1">Yes</option>
+                      <option value = "0"selected>No</option>
+                    </select>
+                    </div>
+                    <div class="col-sm">
+                      <label for="chromegrille">Chrome Grille</label>
+                      <select class="form-control" id="chromegrille" name = "chromegrille" required>
+                        <option value = "1">Yes</option>
+                        <option value = "0"selected>No</option>
+                      </select>
+                      </div>  
+                  </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="antitheftalarm">Anti Theft Alarm</label>
+                        <select class="form-control" id="antitheftalarm" name = "antitheftalarm" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="albs">Anti Lock Braking System</label>
+                          <select class="form-control" id="albs" name = "albs" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="extrearmirror">Adjustable Ext. Rear View Mirror</label>
+                            <select class="form-control" id="extrearmirror" name = "extrearmirror" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="rearcamera">Rear Camera</label>
+                              <select class="form-control" id="rearcamera" name = "rearcamera" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="rflo">Remote Fuel Lid Opener</label>
+                        <select class="form-control" id="rflo" name = "rflo" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="powerantenna">Power Antenna</label>
+                          <select class="form-control" id="powerantenna" name = "powerantenna" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="atd">Anti Theft Device</label>
+                            <select class="form-control" id="atd" name = "atd" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="trunklight">Trunk Light</label>
+                              <select class="form-control" id="trunklight" name = "trunklight" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="lsw">Leather Steering Wheel</label>
+                        <select class="form-control" id="lsw" name = "lsw" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="rww">Rear Window Wiper</label>
+                          <select class="form-control" id="rww" name = "rww" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="rscar">Rear Seat Centre Arm Rest</label>
+                            <select class="form-control" id="rscar" name = "rscar" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="wheelcovers">Wheel Covers</label>
+                              <select class="form-control" id="wheelcovers" name = "wheelcovers" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="radio">Radio</label>
+                        <select class="form-control" id="radio" name = "radio" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="foglights">Fog Lights</label>
+                          <select class="form-control" id="foglights" name = "foglights" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="cdplayer">CD Player</label>
+                            <select class="form-control" id="cdplayer" name = "cdplayer" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="vanitymirror">Vanity Mirror</label>
+                              <select class="form-control" id="vanitymirror" name = "vanitymirror" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="dnrvm">Day Night Rear View Mirror</label>
+                        <select class="form-control" id="dnrvm" name = "dnrvm" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="rearacvents">Rear AC Vents</label>
+                          <select class="form-control" id="rearacvents" name = "rearacvents" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="hafsb">Height Adjustable Front Seat Belts</label>
+                            <select class="form-control" id="hafsb" name = "hafsb" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="pab">Passenger Air Bag</label>
+                              <select class="form-control" id="pab" name = "pab" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="rch">Rear Cup Holders</label>
+                        <select class="form-control" id="rch" name = "rch" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="orvmti">Outside Rear View Mirror Turn Indicators</label>
+                          <select class="form-control" id="orvmti" name = "orvmti" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                            <div class="col-sm">
+                              <label for="pafls">Pretensioners And Force Limiter Seatbelts</label>
+                              <select class="form-control" id="pafls" name = "pafls" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="rearwindowwasher">Rear Window Washer</label>
+                        <select class="form-control" id="rearwindowwasher" name = "rearwindowwasher" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="rearspoiler">Rear Spoiler</label>
+                          <select class="form-control" id="rearspoiler" name = "rearspoiler" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="efrvm">Electric Folding Rear View Mirror</label>
+                            <select class="form-control" id="efrvm" name = "efrvm" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="daw">Door Ajar Warning</label>
+                              <select class="form-control" id="daw" name = "daw" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="tg">Tinted Glass</label>
+                        <select class="form-control" id="tg" name = "tg" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="rrl">Rear Reading Lamp</label>
+                          <select class="form-control" id="rrl" name = "rrl" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div>
+                          <div class="col-sm">
+                            <label for="ke">Keyless Entry</label>
+                            <select class="form-control" id="ke" name = "ke" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                            <div class="col-sm">
+                              <label for="ebd">EBD</label>
+                              <select class="form-control" id="ebd" name = "ebd" required>
+                                <option value = "1">Yes</option>
+                                <option value = "0"selected>No</option>
+                              </select>
+                              </div>  
+                    </div>
+                    <br>
+                    <div class="form-group  row">
+                      <div class="col-sm">
+                        <label for="rto">Remote Trunk Opener</label>
+                        <select class="form-control" id="rto" name = "rto" required>
+                          <option value = "1">Yes</option>
+                          <option value = "0"selected>No</option>
+                        </select>
+                        </div>
+                        <div class="col-sm">
+                          <label for="paervm">Power Adjustable Exterior Rear View Mirror</label>
+                          <select class="form-control" id="paervm" name = "paervm" required>
+                            <option value = "1">Yes</option>
+                            <option value = "0"selected>No</option>
+                          </select>
+                          </div> 
+                          <div class="col-sm">
+                            <label for="ecw">Engine Check Warning</label>
+                            <select class="form-control" id="ecw" name = "ecw" required>
+                              <option value = "1">Yes</option>
+                              <option value = "0"selected>No</option>
+                            </select>
+                            </div>
+                    </div>
+                    <hr>
+                    <h3>Upload Car Images Below:</h3><br>
+                    *Note - Upload Front View, Back View and both the Side Views.
+                    <img src = "/static/carview.jpg" height = "600px" width = "650px">
+                    <br>
+                    <div class="container p-y-1">
+                      <div class="row m-b-1">
+                        <div class="col-sm-6 offset-sm-3">
+                          <button type="button" class="btn btn-primary btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
+                          <div class="form-group inputDnD">
+                            <label class="sr-only" for="inputFile">File Upload</label>
+                            <input type="file" class="form-control-file text-primary font-weight-bold" id="inputFile" accept="image/*" name = "image1" onchange="readUrl(this)" data-title="Front View" required>
+                          </div>
+                        </div>
+                      </div>
+                       <div class="row m-b-1">
+                        <div class="col-sm-6 offset-sm-3">
+                          <button type="button" class="btn btn-success btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
+                          <div class="form-group inputDnD">
+                            <label class="sr-only" for="inputFile">File Upload</label>
+                            <input type="file" class="form-control-file text-success font-weight-bold" id="inputFile" accept="image/*" name = "image2" onchange="readUrl(this)" data-title="Back View" required>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="row m-b-1">
+                        <div class="col-sm-6 offset-sm-3">
+                          <button type="button" class="btn btn-warning btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
+                          <div class="form-group inputDnD">
+                            <label class="sr-only" for="inputFile">File Upload</label>
+                            <input type="file" class="form-control-file text-warning font-weight-bold" id="inputFile" accept="image/*" name = "image3" onchange="readUrl(this)" data-title="Side View 1" required>
+                          </div>
+                        </div>
+                      </div>
+                        <div class="row m-b-1">
+                        <div class="col-sm-6 offset-sm-3">
+                          <button type="button" class="btn btn-danger btn-block" onclick="document.getElementById('inputFile').click()">Add Image</button>
+                          <div class="form-group inputDnD">
+                            <label class="sr-only" for="inputFile">File Upload</label>
+                            <input type="file" class="form-control-file text-danger font-weight-bold" id="inputFile" accept="image/*" name = "image4" onchange="readUrl(this)" data-title="Side View 2" required>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Result">
+                              </div>
+                    </div>
+              </fieldset>
+              </form>   
+            </div>
+            <script>
+              function readUrl(input) {
+  
+                if (input.files && input.files[0]) {
+                  let reader = new FileReader();
+                  reader.onload = (e) => {
+                    let imgData = e.target.result;
+                    let imgName = input.files[0].name;
+                    input.setAttribute("data-title", imgName);
+                    console.log(e.target.result);
+                  }
+                  reader.readAsDataURL(input.files[0]);
+                }
+              
+              }
+            </script>
+            <script>
+              const brandInput = document.getElementById('brandInput');
+              const modelInput = document.getElementById('modelInput');
+              const variantInput = document.getElementById('variantInput');
+            
+              const brandList = document.getElementById('brandList');
+              const modelList = document.getElementById('modelList');
+              const variantList = document.getElementById('variantList');
+            
+              let jsonData; // Store the fetched data globally
+              let debounceTimerBrand;
+              let debounceTimerModel;
+            
+              // Fetch JSON data from the file
+              async function fetchData() {
+                try {
+                  const response = await fetch('/static/category.json');
+                  jsonData = await response.json();
+                } catch (error) {
+                  console.error('Error fetching data:', error);
+                }
+              }
+            
+              async function updateBrandSuggestions() {
+                // Fetch data only if it's not already fetched
+                if (!jsonData) {
+                  await fetchData();
+                }
+            
+                const userInput = brandInput.value.toLowerCase();
+                brandList.innerHTML = '';
+            
+                const uniqueBrands = [...new Set(jsonData.map(item => item.brand))];
+                const filteredBrands = uniqueBrands.filter(brand => brand.toLowerCase().includes(userInput));
+            
+                filteredBrands.forEach(brandItem => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = brandItem;
+                  listItem.addEventListener('click', () => {
+                    brandInput.value = brandItem;
+                    updateModelSuggestions();
+                  });
+                  brandList.appendChild(listItem);
+                });
+            
+                modelInput.disabled = false;
+                variantInput.disabled = true;
+                modelInput.value = '';
+                variantInput.value = '';
+              }
+            
+              function updateModelSuggestions() {
+                const selectedBrand = brandInput.value.toLowerCase();
+                const userInput = modelInput.value.toLowerCase();
+                modelList.innerHTML = '';
+            
+                if (selectedBrand === '') {
+                  modelInput.disabled = true;
+                  modelInput.value = '';
+                  return;
+                }
+            
+                const filteredModels = jsonData
+                  .filter(item => item.brand.toLowerCase() === selectedBrand)
+                  .map(item => item.model);
+            
+                const uniqueModels = [...new Set(filteredModels)];
+            
+                uniqueModels.forEach(modelItem => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = modelItem;
+                  listItem.addEventListener('click', () => {
+                    modelInput.value = modelItem;
+                    updateVariantSuggestions();
+                  });
+                  modelList.appendChild(listItem);
+                });
+            
+                variantInput.disabled = true;
+                variantInput.value = '';
+                modelInput.disabled = false;
+              }
+            
+              function updateVariantSuggestions() {
+                const selectedBrand = brandInput.value.toLowerCase();
+                const selectedModel = modelInput.value.toLowerCase();
+                const userInput = variantInput.value.toLowerCase();
+                variantList.innerHTML = '';
+            
+                if (selectedBrand === '' || selectedModel === '') {
+                  variantInput.disabled = true;
+                  variantInput.value = '';
+                  return;
+                }
+            
+                const filteredVariants = jsonData
+                  .filter(item => item.brand.toLowerCase() === selectedBrand &&
+                                  item.model.toLowerCase() === selectedModel)
+                  .map(item => item.variant);
+            
+                const uniqueVariants = [...new Set(filteredVariants)];
+            
+                uniqueVariants.forEach(variantItem => {
+                  const listItem = document.createElement('li');
+                  listItem.textContent = variantItem;
+                  listItem.addEventListener('click', () => {
+                    variantInput.value = variantItem;
+                  });
+                  variantList.appendChild(listItem);
+                });
+            
+                variantInput.disabled = false;
+              }
+            
+              // Event listeners with debouncing
+              brandInput.addEventListener('input', function () {
+                clearTimeout(debounceTimerBrand);
+                debounceTimerBrand = setTimeout(function () {
+                  updateBrandSuggestions();
+                }, 300);
+              });
+            
+              modelInput.addEventListener('input', function () {
+                clearTimeout(debounceTimerModel);
+                debounceTimerModel = setTimeout(function () {
+                  updateModelSuggestions();
+                }, 300);
+              });
+            
+              // Close the autocomplete lists when clicking outside of them
+              document.addEventListener('click', function (e) {
+                closeAllLists(e.target);
+              });
+            
+              function closeAllLists(except) {
+                const lists = document.querySelectorAll('.autocomplete-list');
+                lists.forEach(function (list) {
+                  if (except !== list && except !== brandInput && except !== modelInput && except !== variantInput) {
+                    list.innerHTML = '';
+                  }
+                });
+              }
+            </script>
+            
+            <style>
+              .autocomplete-list {
+                list-style: none;
+                background: black;
+                padding: 0;
+                margin: 0;
+                position: absolute;
+                z-index: 1;
+              }
+            
+              .autocomplete-list li {
+                padding: 8px;
+                cursor: pointer;
+                color: white;
+              }
+            
+              .autocomplete-list li:hover {
+                background-color: black;
+              }
+            </style>
+</body>
+<script>
+  var myVar;
+  
+  function myFunction() {
+    myVar = setTimeout(showPage, 3000);
+  }
+  
+  function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
+  }
+  </script>
+  <script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "da11f124-17bf-48b5-b85e-37d5ee8f4bb8", // The ID of this integration.
+      region: "eu-gb", // The region your integration is hosted in.
+      serviceInstanceID: "53a30ff1-a105-486f-b9b2-80a37c74f96d", // The ID of your service instance.
+      onLoad: async (instance) => { await instance.render(); }
+    };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+  </script>
+</html>
